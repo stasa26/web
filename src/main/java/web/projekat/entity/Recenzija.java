@@ -11,7 +11,9 @@ public class Recenzija implements Serializable {
     private Double ocena;
     private String tekst;
     private String datum;
-    private String korisnik;
+
+    @OneToOne
+    private Korisnik korisnik;
 
     public Long getId() {
         return id;
@@ -45,11 +47,11 @@ public class Recenzija implements Serializable {
         this.datum = datum;
     }
 
-    public String getKorisnik() {
+    public Korisnik getKorisnik() {
         return korisnik;
     }
 
-    public void setKorisnik(String korisnik) {
+    public void setKorisnik(Korisnik korisnik) {
         this.korisnik = korisnik;
     }
 

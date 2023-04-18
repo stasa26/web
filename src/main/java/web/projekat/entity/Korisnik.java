@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +19,7 @@ public class Korisnik implements Serializable {
     private String opis;
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
+    private Boolean admin;
 
     public Long getId() {
         return id;
@@ -97,6 +99,14 @@ public class Korisnik implements Serializable {
 
     public void setUloga(Uloga uloga) {
         this.uloga = uloga;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     @Override

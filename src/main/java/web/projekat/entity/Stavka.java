@@ -8,8 +8,15 @@ public class Stavka implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String recenzija;
-    private String knjiga;
+
+    @OneToOne
+    private Recenzija recenzija;
+
+    @OneToOne
+    private Knjiga knjiga;
+
+    @OneToOne
+    private Polica polica;
 
     public Long getId() {
         return id;
@@ -19,28 +26,37 @@ public class Stavka implements Serializable {
         this.id = id;
     }
 
-    public String getRecenzija() {
+    public Recenzija getRecenzija() {
         return recenzija;
     }
 
-    public void setRecenzija(String recenzija) {
+    public void setRecenzija(Recenzija recenzija) {
         this.recenzija = recenzija;
     }
 
-    public String getKnjiga() {
+    public Knjiga getKnjiga() {
         return knjiga;
     }
 
-    public void setKnjiga(String knjiga) {
+    public void setKnjiga(Knjiga knjiga) {
         this.knjiga = knjiga;
+    }
+
+    public Polica getPolica() {
+        return polica;
+    }
+
+    public void setPolica(Polica polica) {
+        this.polica = polica;
     }
 
     @Override
     public String toString() {
         return "Stavka{" +
                 "id=" + id +
-                ", recenzija='" + recenzija + '\'' +
-                ", knjiga='" + knjiga + '\'' +
+                ", recenzija='" + recenzija.getOcena() + '\'' +
+                ", knjiga='" + knjiga.getNaslov() + '\''  +
+                ", polica='" + polica.getNaziv() + '\'' +
                 '}';
     }
 }

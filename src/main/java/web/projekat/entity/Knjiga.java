@@ -2,6 +2,8 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Knjiga implements Serializable {
@@ -14,8 +16,14 @@ public class Knjiga implements Serializable {
     private String objavljena;
     private Long brojStrana;
     private String opis;
-    private String zanr;
     private Double ocena;
+
+    @ManyToMany
+    private Set<Zanr> zanr = new HashSet<Zanr>();
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Autor autor;
 
     public Long getId() {
         return id;
@@ -73,11 +81,11 @@ public class Knjiga implements Serializable {
         this.opis = opis;
     }
 
-    public String getZanr() {
+    public Set<Zanr> getZanr() {
         return zanr;
     }
 
-    public void setZanr(String zanr) {
+    public void setZanr(Set<Zanr> zanr) {
         this.zanr = zanr;
     }
 
@@ -89,6 +97,14 @@ public class Knjiga implements Serializable {
         this.ocena = ocena;
     }
 
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
     @Override
     public String toString() {
         return "Knjiga{" +
@@ -97,8 +113,8 @@ public class Knjiga implements Serializable {
                 ", ISBN='" + ISBN + '\'' +
                 ", objavljena='" + objavljena + '\'' +
                 ", brojStrana=" + brojStrana +
-                ", zanr='" + zanr + '\'' +
                 ", ocena=" + ocena +
+                ", autor=" + autor.getIme() +
                 '}';
     }
 }

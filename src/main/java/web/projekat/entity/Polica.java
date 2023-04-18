@@ -10,7 +10,10 @@ public class Polica implements Serializable {
     private Long id;
     private String naziv;
     private Boolean primarna;
-    private String stavka;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Korisnik korisnik;
 
     public Long getId() {
         return id;
@@ -36,12 +39,12 @@ public class Polica implements Serializable {
         this.primarna = primarna;
     }
 
-    public String getStavka() {
-        return stavka;
+    public Korisnik getKorisnik() {
+        return korisnik;
     }
 
-    public void setStavka(String stavka) {
-        this.stavka = stavka;
+    public void setKorisnik(Korisnik korisnik) {
+        this.korisnik = korisnik;
     }
 
     @Override
@@ -50,7 +53,6 @@ public class Polica implements Serializable {
                 "id=" + id +
                 ", naziv='" + naziv + '\'' +
                 ", primarna=" + primarna +
-                ", stavka='" + stavka + '\'' +
                 '}';
     }
 }
