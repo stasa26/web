@@ -13,6 +13,9 @@ public class RegistracijaDto {
         this.email = email;
         this.password = password;
     }
+    public RegistracijaDto(Registracija registracija){
+        this.Ime =
+    }
 
     public String getIme(){return Ime;}
     public void setIme(String Ime){this.Ime = Ime;}
