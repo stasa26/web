@@ -13,8 +13,11 @@ public class RegistracijaDto {
         this.email = email;
         this.password = password;
     }
-    public RegistracijaDto(Registracija registracija){
-        this.Ime =
+    public RegistracijaDto(RegistracijaDto registracija){
+        this.Ime = registracija.getIme();
+        this.Prezime = registracija.getPrezime();
+        this.email = registracija.getEmail();
+        this.password = registracija.getPassword();
     }
 
     public String getIme(){return Ime;}
