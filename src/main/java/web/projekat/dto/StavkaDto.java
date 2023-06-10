@@ -8,12 +8,12 @@ import web.projekat.entity.Stavka;
 
 public class StavkaDto {
     private Long id;
-    private Recenzija recenzija;
-    private Knjiga knjiga;
-    private Polica polica;
+    private Long recenzija;
+    private Long knjiga;
+    private Long polica;
 
     public StavkaDto(){}
-    public StavkaDto(Long id,Recenzija recenzija,Knjiga knjiga,Polica polica){
+    public StavkaDto(Long id,Long recenzija,Long knjiga,Long polica){
         this.id = id;
         this.knjiga = knjiga;
         this.recenzija = recenzija;
@@ -21,24 +21,24 @@ public class StavkaDto {
     }
     public StavkaDto(Stavka stavka){
         this.id = stavka.getId();
-        this.recenzija = stavka.getRecenzija();
-        this.knjiga = stavka.getKnjiga();
-        this.polica = stavka.getPolica();
+        this.recenzija = stavka.getRecenzija().getId();
+        this.knjiga = stavka.getKnjiga().getId();
+        this.polica = stavka.getPolica().getId();
     }
 
     public Long getId() {
         return id;
     }
 
-    public Recenzija getRecenzija() {
+    public Long getRecenzija() {
         return recenzija;
     }
 
-    public Knjiga getKnjiga() {
+    public Long getKnjiga() {
         return knjiga;
     }
 
-    public Polica getPolica() {
+    public Long getPolica() {
         return polica;
     }
 
@@ -46,15 +46,15 @@ public class StavkaDto {
         this.id = id;
     }
 
-    public void setRecenzija(Recenzija recenzija) {
+    public void setRecenzija(Long recenzija) {
         this.recenzija = recenzija;
     }
 
-    public void setKnjiga(Knjiga knjiga) {
+    public void setKnjiga(Long knjiga) {
         this.knjiga = knjiga;
     }
 
-    public void setPolica(Polica polica) {
+    public void setPolica(Long polica) {
         this.polica = polica;
     }
 }

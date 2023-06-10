@@ -1,23 +1,24 @@
 package web.projekat.dto;
 
 import web.projekat.entity.Korisnik;
+import web.projekat.entity.Polica;
 
 public class PolicaDto {
     private Long id;
     private String naziv;
     private Boolean primarna;
-    private Korisnik korisnik;
+    private Long korisnik;
     public PolicaDto() {};
-    public PolicaDto(Long id,String naziv,Boolean primarna,Korisnik korisnik){
+    public PolicaDto(Long id,String naziv,Boolean primarna,Long korisnik){
         this.id = id;
         this.naziv = naziv;
         this.korisnik = korisnik;
     }
-    public PolicaDto(PolicaDto polica){
+    public PolicaDto(Polica polica){
         this.id = polica.getId();
         this.naziv = polica.getNaziv();
         this.primarna = polica.getPrimarna();
-        this.korisnik = polica.getKorisnik();
+        this.korisnik = polica.getKorisnik().getId();
 
     }
     public Long getId(){
@@ -29,7 +30,7 @@ public class PolicaDto {
     public Boolean getPrimarna(){
         return primarna;
     }
-    public Korisnik getKorisnik(){
+    public Long getKorisnik(){
         return korisnik;
     }
     public void setId(Long id){
@@ -41,7 +42,7 @@ public class PolicaDto {
     public void setPrimarna(Boolean primarna){
         this.primarna = primarna;
     }
-    public void setKorisnik(Korisnik korisnik){
+    public void setKorisnik(Long korisnik){
         this.korisnik = korisnik;
     }
 }

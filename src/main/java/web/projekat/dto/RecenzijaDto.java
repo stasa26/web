@@ -8,9 +8,9 @@ public class RecenzijaDto {
     private Double ocena;
     private String tekst;
     private String datum;
-    private Korisnik korisnik;
+    private Long korisnik;
     public RecenzijaDto(){}
-    public RecenzijaDto(Long id,Double ocena,String tekst,String datum,Korisnik korisnik){
+    public RecenzijaDto(Long id,Double ocena,String tekst,String datum,Long korisnik){
         this.id = id;
         this.ocena = ocena;
         this.tekst = tekst;
@@ -22,7 +22,7 @@ public class RecenzijaDto {
         this.ocena = recenzija.getOcena();
         this.tekst = recenzija.getTekst();
         this.datum = recenzija.getDatum();
-        this.korisnik = recenzija.getKorisnik();
+        this.korisnik = recenzija.getKorisnik().getId();
     }
     public Long getId(){
         return id;
@@ -36,7 +36,7 @@ public class RecenzijaDto {
     public String getDatum(){
         return datum;
     }
-    public Korisnik getKorisnik(){
+    public Long getKorisnik(){
         return korisnik;
     }
 
@@ -56,7 +56,7 @@ public class RecenzijaDto {
         this.datum = datum;
     }
 
-    public void setKorisnik(Korisnik korisnik) {
+    public void setKorisnik(Long korisnik) {
         this.korisnik = korisnik;
     }
 }

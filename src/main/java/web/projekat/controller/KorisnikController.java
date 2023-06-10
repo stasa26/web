@@ -4,13 +4,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.events.Event;
-import web.projekat.dto.KnjigaDto;
 import web.projekat.dto.KorisnikDto;
 import web.projekat.dto.LoginDto;
-import web.projekat.dto.RegisterDto;
+import web.projekat.dto.RegistracijaDto;
 import web.projekat.entity.Korisnik;
 import web.projekat.service.KorisnikService;
 
@@ -81,9 +78,7 @@ public class KorisnikController {
         return ResponseEntity.ok(dto);
     }
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto dto) {
-        if (!dto.getPassword().equals(dto.getPasswordPonovo()))
-            return new ResponseEntity<>("Lozinka se ne poklapa", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> register(@RequestBody RegistracijaDto dto) {
         korisnikService.register(dto);
         return ResponseEntity.ok("Registrovan");
     }
