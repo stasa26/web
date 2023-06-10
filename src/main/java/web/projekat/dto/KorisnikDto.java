@@ -1,15 +1,24 @@
 package web.projekat.dto;
 
 public class KorisnikDto {
+    private Long id;
     private String email;
     private String password;
 
     public KorisnikDto(){
     }
-    public KorisnikDto(String email,String password){
+    public KorisnikDto(Long id,String email,String password){
+        this.id = id;
         this.email = email;
         this.password = password;
     }
+    public KorisnikDto(KorisnikDto korisnikDto){
+        this.id = korisnikDto.getId();
+        this.email = korisnikDto.getEmail();
+        this.password = korisnikDto.getPassword();
+    }
+    public Long getId(){ return id;}
+    public void setId(Long id){this.id = id;}
     public String getEmail(){
         return email;
     }
