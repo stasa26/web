@@ -10,9 +10,11 @@ import org.yaml.snakeyaml.events.Event;
 import web.projekat.dto.KnjigaDto;
 import web.projekat.dto.KorisnikDto;
 import web.projekat.dto.LoginDto;
+import web.projekat.dto.RegisterDto;
 import web.projekat.entity.Korisnik;
 import web.projekat.service.KorisnikService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,11 +27,7 @@ public class KorisnikController {
         this.korisnikService = korisnikService;
     }
 
-    @GetMapping
-    public List<Korisnik> getKorisnik(){
-        return korisnikService.getKorisnik();
-    }
-    @PostMapping("api/login")
+    @PostMapping("login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session){
         // proverimo da li su podaci validni
         if(loginDto.getEmail().isEmpty() || loginDto.getPassword().isEmpty())
@@ -42,7 +40,8 @@ public class KorisnikController {
         session.setAttribute("korisnik", loggedKorisnik);
         return ResponseEntity.ok("Successfully logged in!");
     }
-    @PostMapping("api/logout")
+
+    @RequestMapping("logout")
     public ResponseEntity Logout(HttpSession session){
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -52,9 +51,9 @@ public class KorisnikController {
         session.invalidate();
         return new ResponseEntity("Successfully logged out", HttpStatus.OK);
     }
-    @GetMapping("/api/korisnik")
+    @GetMapping("korisnik")
     public ResponseEntity<List<KorisnikDto>> getKorisnik(HttpSession session){
-        List<Korisnik> employeeList = korisnikService.findAll();
+        List<Korisnik> korisnikList = korisnikService.findAll();
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("employee");
         if(loggedKorisnik == null) {
@@ -64,24 +63,29 @@ public class KorisnikController {
         }
 
         List<KorisnikDto> dtos = new ArrayList<>();
-        Korisnik[] korisnikList;
         for(Korisnik korisnik : korisnikList){
             KorisnikDto dto = new KorisnikDto(korisnik);
             dtos.add(dto);
         }
         return ResponseEntity.ok(dtos);
     }
-    @GetMapping("/api/korisnik/{id}")
-    public Korisnik getKorisnik(@PathVariable(name = "id") Long id, HttpSession session){
-        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
-        System.out.println(korisnik.getEmail());
-        session.invalidate();
-        return korisnikService.findOne(id);
+    @GetMapping("korisnik/{id}")
+    public ResponseEntity<KorisnikDto> getKorisnik(@PathVariable(name = "id") Long id){
+        Korisnik korisnik = korisnikService.findOne(id);
+
+        if (korisnik == null)
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+        KorisnikDto dto = new KorisnikDto(korisnik);
+
+        return ResponseEntity.ok(dto);
     }
-    @PostMapping("/api/save-korisnik")
-    public String saveKorisnik(@RequestBody Korisnik korisnik) {
-        this.korisnikService.save(korisnik);
-        return "Successfully saved an employee!";
+    @PostMapping("register")
+    public ResponseEntity<String> register(@RequestBody RegisterDto dto) {
+        if (!dto.getPassword().equals(dto.getPasswordPonovo()))
+            return new ResponseEntity<>("Lozinka se ne poklapa", HttpStatus.BAD_REQUEST);
+        korisnikService.register(dto);
+        return ResponseEntity.ok("Registrovan");
     }
 
 

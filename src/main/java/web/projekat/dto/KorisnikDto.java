@@ -1,5 +1,7 @@
 package web.projekat.dto;
 
+import web.projekat.entity.Korisnik;
+
 public class KorisnikDto {
     private Long id;
     private String email;
@@ -12,10 +14,10 @@ public class KorisnikDto {
         this.email = email;
         this.password = password;
     }
-    public KorisnikDto(KorisnikDto korisnikDto){
-        this.id = korisnikDto.getId();
-        this.email = korisnikDto.getEmail();
-        this.password = korisnikDto.getPassword();
+    public KorisnikDto(Korisnik korisnik){
+        this.id = korisnik.getId();
+        this.email = korisnik.getEmail();
+        this.password = korisnik.getPassword();
     }
     public Long getId(){ return id;}
     public void setId(Long id){this.id = id;}

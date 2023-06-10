@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import web.projekat.dto.KorisnikDto;
+import web.projekat.dto.RegisterDto;
 import web.projekat.entity.Korisnik;
 import web.projekat.repository.KorisnikRepository;
 
@@ -17,7 +18,7 @@ public class KorisnikService {
     @Autowired
     private KorisnikRepository korisnikRepository;
 
-    public void save(Korisnik korisnik) {
+    public Korisnik save(Korisnik korisnik) {
         return korisnikRepository.save(korisnik);
     }
     public Korisnik findOne(Long id) {
@@ -40,7 +41,13 @@ public class KorisnikService {
 
     }
 
-    public List<Korisnik> getKorisnik() {
-        return List.of(getKorisnik().get());
+    public void register(RegisterDto dto) {
+        Korisnik korisnik = new Korisnik();
+        korisnik.setIme(dto.getIme());
+        korisnik.setPrezime(dto.getPrezime());
+        korisnik.setEmail(dto.getEmail());
+        korisnik.setPassword(dto.getPassword());
+        korisnik.setKorisnickoIme(dto.getKorisnickoIme());
+        save(korisnik);
     }
 }
