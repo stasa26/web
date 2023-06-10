@@ -26,6 +26,12 @@ public class KnjigaService {
     }
 
     public void save(KnjigaDto dto) {
-
+        Knjiga knjiga = new Knjiga();
+        knjiga.setISBN(dto.getISBN());
+        knjiga.setNaslov(dto.getNaslov());
+        knjiga.setObjavljena(dto.getObjavljena());
+        knjiga.setBrojStrana(dto.getBrojStrana());
+        knjiga.setOpis(dto.getOpis());
+        knjigaRepository.save(knjiga);
     }
 }

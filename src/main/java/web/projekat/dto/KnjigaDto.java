@@ -8,36 +8,26 @@ import java.util.Set;
 
 public class KnjigaDto {
     private String naslov;
-    private String naslovnaFotografija;
     private String ISBN;
     private String objavljena;
     private Long brojStrana;
     private String opis;
-    private Double ocena;
-    private Knjiga knjiga;
-    private Set<Zanr> zanr = new HashSet<Zanr>();
 
     public KnjigaDto(){
     }
-    public KnjigaDto(String naslov,String naslovnaFotografija,String ISBN,String objavljena,Long brojStrana,String opis,Double ocena,Set<Zanr> zanr){
+    public KnjigaDto(String naslov,String ISBN,String objavljena,Long brojStrana,String opis){
         this.naslov = naslov;
-        this.naslovnaFotografija = naslovnaFotografija;
         this.ISBN = ISBN;
         this.objavljena = objavljena;
         this.brojStrana = brojStrana;
         this.opis = opis;
-        this.ocena = ocena;
-        this.zanr = zanr;
     }
     public KnjigaDto(Knjiga knjiga){
         this.naslov = knjiga.getNaslov();
-        this.naslovnaFotografija = knjiga.getNaslovnaFotografija();
         this.ISBN = knjiga.getISBN();
         this.objavljena = knjiga.getObjavljena();
         this.brojStrana = knjiga.getBrojStrana();
         this.opis = knjiga.getOpis();
-        this.ocena = knjiga.getOcena();
-        this.zanr = knjiga.getZanr();
     }
 
     public String getNaslov() {
@@ -46,14 +36,6 @@ public class KnjigaDto {
 
     public void setNaslov(String naslov) {
         this.naslov = naslov;
-    }
-
-    public String getNaslovnaFotografija() {
-        return naslovnaFotografija;
-    }
-
-    public void setNaslovnaFotografija(String naslovnaFotografija) {
-        this.naslovnaFotografija = naslovnaFotografija;
     }
 
     public String getISBN() {
@@ -86,22 +68,6 @@ public class KnjigaDto {
 
     public void setOpis(String opis) {
         this.opis = opis;
-    }
-
-    public Set<Zanr> getZanr() {
-        return zanr;
-    }
-
-    public void setZanr(Set<Zanr> zanr) {
-        this.zanr = zanr;
-    }
-
-    public Double getOcena() {
-        return ocena;
-    }
-
-    public void setOcena(Double ocena) {
-        this.ocena = ocena;
     }
 }
 
