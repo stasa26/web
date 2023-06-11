@@ -29,10 +29,10 @@ public class StavkaService {
     }
 
     public void save(StavkaDto dto) {
-        Stavka stavka = new Stavka();
-        stavka.setRecenzija(dto.getRecenzija());
-        stavka.setKnjiga(dto.getKnjiga());
-        stavka.setPolica(dto.getPolica());
-        stavkaRepository.save(stavka);
+//        Stavka stavka = new Stavka();
+//        stavka.setRecenzija(dto.getRecenzija());
+//        stavka.setKnjiga(dto.getKnjiga());
+//        stavka.setPolica(dto.getPolica());
+//        stavkaRepository.save(stavka);
     }
 }

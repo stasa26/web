@@ -8,17 +8,17 @@ public class PolicaDto {
     private String naziv;
     private Boolean primarna;
     private Long korisnik;
-    public PolicaDto() {};
+    public PolicaDto() {}
     public PolicaDto(Long id,String naziv,Boolean primarna,Long korisnik){
         this.id = id;
         this.naziv = naziv;
         this.korisnik = korisnik;
+        this.primarna = primarna;
     }
     public PolicaDto(Polica polica){
         this.id = polica.getId();
         this.naziv = polica.getNaziv();
         this.primarna = polica.getPrimarna();
-        this.korisnik = polica.getKorisnik().getId();
 
     }
     public Long getId(){

@@ -10,7 +10,7 @@ INSERT INTO ZANR (naziv) VALUES ('Klasicna');
 
 INSERT INTO KNJIGA (naslov, naslovna_fotografija, isbn, objavljena, broj_strana, opis, autor_id) VALUES ('Na Drini Cuprija', 'slika.jpg', '11111111111', '13/13/1313', 1000, 'knjiga o mostu', 3);
 
-INSERT INTO RECENZIJA (ocena, tekst, datum) VALUES (10, 'dobra', '11/11/2011');
+INSERT INTO RECENZIJA (ocena, tekst, datum, korisnik_id) VALUES (10, 'dobra', '11/11/2011', 1);
 
 INSERT INTO POLICA (naziv, primarna, korisnik_id) VALUES ('Read', true, 1);
 

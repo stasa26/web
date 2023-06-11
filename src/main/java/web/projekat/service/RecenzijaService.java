@@ -6,6 +6,7 @@ import web.projekat.dto.KnjigaDto;
 import web.projekat.dto.RecenzijaDto;
 import web.projekat.dto.RegistracijaDto;
 import web.projekat.entity.Knjiga;
+import web.projekat.entity.Korisnik;
 import web.projekat.entity.Recenzija;
 import web.projekat.repository.KnjigaRepository;
 import web.projekat.repository.RecenzijaRepository;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class RecenzijaService {
     @Autowired
     private RecenzijaRepository recenzijaRepository;
+    @Autowired
+    private KorisnikService korisnikService;
 
     public Recenzija findOne(Long id) {
         Optional<Recenzija> recenzija = recenzijaRepository.findById(id);

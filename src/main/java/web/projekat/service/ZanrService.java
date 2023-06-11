@@ -8,6 +8,7 @@ import web.projekat.entity.Knjiga;
 import web.projekat.entity.Zanr;
 import web.projekat.repository.ZanrRepository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,13 @@ public class ZanrService {
     private ZanrRepository zanrRepository;
     public Zanr findOne(Long id) {
         Optional<Zanr> zanr = zanrRepository.findById(id);
+        if (zanr.isPresent())
+            return zanr.get();
+        return null;
+    }
+
+    public Zanr findByNaziv(String naziv) {
+        Optional<Zanr> zanr = zanrRepository.findByNaziv(naziv);
         if (zanr.isPresent())
             return zanr.get();
         return null;

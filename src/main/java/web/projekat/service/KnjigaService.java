@@ -3,6 +3,7 @@ package web.projekat.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.projekat.dto.KnjigaDto;
+import web.projekat.entity.Autor;
 import web.projekat.entity.Knjiga;
 import web.projekat.repository.KnjigaRepository;
 
@@ -25,13 +26,18 @@ public class KnjigaService {
         return knjigaRepository.findAll();
     }
 
-    public void save(KnjigaDto dto) {
+    public void save(Autor autor, KnjigaDto dto) {
         Knjiga knjiga = new Knjiga();
         knjiga.setISBN(dto.getISBN());
         knjiga.setNaslov(dto.getNaslov());
         knjiga.setObjavljena(dto.getObjavljena());
         knjiga.setBrojStrana(dto.getBrojStrana());
         knjiga.setOpis(dto.getOpis());
+        knjiga.setAutor(autor);
         knjigaRepository.save(knjiga);
+    }
+
+    public void delete(Long id) {
+        knjigaRepository.deleteById(id);
     }
 }

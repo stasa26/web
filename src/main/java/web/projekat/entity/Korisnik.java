@@ -2,6 +2,7 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -20,6 +21,10 @@ public class Korisnik implements Serializable {
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
     private Boolean admin;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "korisnik_id")
+    private Set<Polica> police;
 
     public Long getId() {
         return id;
@@ -120,5 +125,13 @@ public class Korisnik implements Serializable {
                 ", datumRodjenja='" + datumRodjenja + '\'' +
                 ", uloga=" + uloga +
                 '}';
+    }
+
+    public Set<Polica> getPolice() {
+        return police;
+    }
+
+    public void setPolice(Set<Polica> police) {
+        this.police = police;
     }
 }

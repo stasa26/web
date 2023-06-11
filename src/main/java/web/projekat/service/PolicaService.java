@@ -5,12 +5,15 @@ import org.springframework.stereotype.Service;
 import web.projekat.dto.KnjigaDto;
 import web.projekat.dto.PolicaDto;
 import web.projekat.entity.Knjiga;
+import web.projekat.entity.Korisnik;
 import web.projekat.entity.Polica;
 import web.projekat.repository.KnjigaRepository;
 import web.projekat.repository.PolicaRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PolicaService {
@@ -28,10 +31,18 @@ public class PolicaService {
         return policaRepository.findAll();
     }
 
-    public void save(PolicaDto dto) {
+    public Polica save(PolicaDto dto) {
         Polica polica = new Polica();
         polica.setNaziv(dto.getNaziv());
         polica.setPrimarna(dto.getPrimarna());
-        policaRepository.save(polica);
+        return policaRepository.save(polica);
+    }
+
+    public Set<Polica> napraviPrimarne(Korisnik korisnik) {
+        Set<Polica> police = new HashSet<>();
+        police.add(save(new PolicaDto(null, "Read", true, korisnik.getId())));
+        police.add(save(new PolicaDto(null, "Want To Read", true, korisnik.getId())));
+        police.add(save(new PolicaDto(null, "Currently Reading", true, korisnik.getId())));
+        return police;
     }
 }

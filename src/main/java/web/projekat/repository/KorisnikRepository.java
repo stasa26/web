@@ -5,10 +5,11 @@ import org.springframework.stereotype.Repository;
 import web.projekat.dto.KorisnikDto;
 import web.projekat.entity.Korisnik;
 
+import java.util.Optional;
+
 @Repository
 
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
-    Korisnik findByEmail(String email);
-    Korisnik findByPassword(String password);
-    Korisnik getByEmail(String email);
+    Optional<Korisnik> findByEmail(String email);
+    Optional<Korisnik> findByKorisnickoIme(String korisnickoIme);
 }

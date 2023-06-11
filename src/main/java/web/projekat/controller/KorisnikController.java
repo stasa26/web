@@ -79,9 +79,36 @@ public class KorisnikController {
     }
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody RegistracijaDto dto) {
+        if (!dto.getPasswordPonovo().equals(dto.getPassword()))
+            return new ResponseEntity<>("Password se ne poklapa", HttpStatus.BAD_REQUEST);
+
+        if (korisnikService.findByKorisnickoIme(dto.getKorisnickoIme()) != null)
+            return new ResponseEntity<>("Vec postoji to korisnicko ime", HttpStatus.BAD_REQUEST);
+
+        if (korisnikService.findByEmail(dto.getEmail()) != null)
+            return new ResponseEntity<>("Vec postoji taj email", HttpStatus.BAD_REQUEST);
+
         korisnikService.register(dto);
         return ResponseEntity.ok("Registrovan");
     }
 
+    @PostMapping("autor")
+    public ResponseEntity<String> napraviAutora(@RequestBody RegistracijaDto dto, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
 
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        if (!korisnik.getAdmin())
+            return new ResponseEntity<>("Morate biti admin", HttpStatus.FORBIDDEN);
+
+        if (korisnikService.findByKorisnickoIme(dto.getKorisnickoIme()) != null)
+            return new ResponseEntity<>("Vec postoji to korisnicko ime", HttpStatus.BAD_REQUEST);
+
+        if (korisnikService.findByEmail(dto.getEmail()) != null)
+            return new ResponseEntity<>("Vec postoji taj email", HttpStatus.BAD_REQUEST);
+
+        korisnikService.napraviAutora(dto);
+        return ResponseEntity.ok("Uspesno dodan");
+    }
 }
