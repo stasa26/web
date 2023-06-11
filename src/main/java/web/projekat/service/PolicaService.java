@@ -45,4 +45,6 @@ public class PolicaService {
         police.add(save(new PolicaDto(null, "Currently Reading", true, korisnik.getId())));
         return police;
     }
+    public void delete(Long id) {policaRepository.deleteById(id);
+    }
 }

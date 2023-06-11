@@ -51,4 +51,14 @@ public class RecenzijaController {
         recenzijaService.save(dto);
         return ResponseEntity.ok("Uspesno dodano");
     }
+    @DeleteMapping("recenzija/{id}")
+    public ResponseEntity<String> obrisiRecenziju(@PathVariable Long id, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        recenzijaService.delete(id);
+        return ResponseEntity.ok("Uspesno obrisano");
+    }
 }

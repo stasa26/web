@@ -38,4 +38,6 @@ public class RecenzijaService {
         recenzija.setTekst(dto.getTekst());
         recenzijaRepository.save(recenzija);
     }
+    public void delete(Long id) {recenzijaRepository.deleteById(id);
+    }
 }

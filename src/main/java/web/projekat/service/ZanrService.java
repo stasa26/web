@@ -39,4 +39,7 @@ public class ZanrService {
         zanr.setNaziv(dto.getNaziv());
         zanrRepository.save(zanr);
     }
+    public void delete(Long id) {
+        zanrRepository.deleteById(id);
+    }
 }

@@ -54,4 +54,14 @@ public class ZanrController {
         zanrService.save(dto);
         return ResponseEntity.ok("Uspesno dodano");
     }
+    @DeleteMapping("zanr/{id}")
+    public ResponseEntity<String> obrisiZanr(@PathVariable Long id, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        zanrService.delete(id);
+        return ResponseEntity.ok("Uspesno obrisano");
+    }
 }

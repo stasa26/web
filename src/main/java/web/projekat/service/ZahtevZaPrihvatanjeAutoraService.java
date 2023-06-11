@@ -24,4 +24,6 @@ public class ZahtevZaPrihvatanjeAutoraService {
     public List<ZahtevZaPrihvatanjeAutora> findAll() {
         return zahtevZaPrihvatanjeAutoraRepository.findAll();
     }
+    public void delete(Long id) {zahtevZaPrihvatanjeAutoraRepository.deleteById(id);
+    }
 }

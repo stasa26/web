@@ -88,4 +88,7 @@ public class KorisnikService {
         autor.setPassword(dto.getPassword());
         autorRepository.save(autor);
     }
+    public void delete(Long id) {
+        korisnikRepository.deleteById(id);
+    }
 }

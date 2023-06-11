@@ -1,15 +1,14 @@
 package web.projekat.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.projekat.dto.KnjigaDto;
 import web.projekat.dto.StavkaDto;
 import web.projekat.entity.Knjiga;
+import web.projekat.entity.Korisnik;
 import web.projekat.entity.Stavka;
 import web.projekat.service.StavkaService;
 
@@ -37,5 +36,15 @@ public class StavkaController {
         for (Stavka stavka : stavke)
             dtos.add(new StavkaDto(stavka));
         return ResponseEntity.ok(dtos);
+    }
+    @DeleteMapping("stavka/{id}")
+    public ResponseEntity<String> obrisiStavku(@PathVariable Long id, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        stavkaService.delete(id);
+        return ResponseEntity.ok("Uspesno obrisano");
     }
 }

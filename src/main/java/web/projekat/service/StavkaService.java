@@ -35,4 +35,7 @@ public class StavkaService {
 //        stavka.setPolica(dto.getPolica());
 //        stavkaRepository.save(stavka);
     }
+    public void delete(Long id) {
+        stavkaRepository.deleteById(id);
+    }
 }

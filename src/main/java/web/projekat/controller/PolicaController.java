@@ -52,4 +52,14 @@ public class PolicaController {
         policaService.save(dto);
         return ResponseEntity.ok("Uspesno dodano");
     }
+    @DeleteMapping("polica/{id}")
+    public ResponseEntity<String> obrisiPolicu(@PathVariable Long id, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        policaService.delete(id);
+        return ResponseEntity.ok("Uspesno obrisano");
+    }
 }

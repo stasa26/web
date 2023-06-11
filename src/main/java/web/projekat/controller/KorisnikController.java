@@ -111,4 +111,14 @@ public class KorisnikController {
         korisnikService.napraviAutora(dto);
         return ResponseEntity.ok("Uspesno dodan");
     }
+    @DeleteMapping("korisnik/{id}")
+    public ResponseEntity<String> obrisiKorisnika(@PathVariable Long id, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null)
+            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        korisnikService.delete(id);
+        return ResponseEntity.ok("Uspesno obrisano");
+    }
 }
