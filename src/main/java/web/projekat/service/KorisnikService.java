@@ -9,6 +9,7 @@ import web.projekat.dto.RegistracijaDto;
 import web.projekat.entity.Autor;
 import web.projekat.entity.Korisnik;
 import web.projekat.entity.Uloga;
+import web.projekat.entity.ZahtevZaPrihvatanjeAutora;
 import web.projekat.repository.AutorRepository;
 import web.projekat.repository.KorisnikRepository;
 
@@ -128,5 +129,12 @@ public class KorisnikService {
             korisnik.setEmail(korisnikDto.getEmail());
 
         korisnikRepository.save(korisnik);
+    }
+
+    void prihvacenAutor(Autor autor, ZahtevZaPrihvatanjeAutora zahtev) {
+        autor.setEmail(zahtev.getEmail());
+        autor.setPassword("pass");
+        autor.setAktivan(true);
+        autorRepository.save(autor);
     }
 }

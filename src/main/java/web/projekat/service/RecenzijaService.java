@@ -19,8 +19,6 @@ import java.util.Optional;
 public class RecenzijaService {
     @Autowired
     private RecenzijaRepository recenzijaRepository;
-    @Autowired
-    private KorisnikService korisnikService;
 
     public Recenzija findOne(Long id) {
         Optional<Recenzija> recenzija = recenzijaRepository.findById(id);
@@ -51,6 +49,8 @@ public class RecenzijaService {
 
         recenzijaRepository.save(recenzija);
     }
-    public void delete(Long id) {recenzijaRepository.deleteById(id);
+    public void delete(Recenzija recenzija) {
+        recenzija.setKorisnik(null);
+        recenzijaRepository.delete(recenzija);
     }
 }

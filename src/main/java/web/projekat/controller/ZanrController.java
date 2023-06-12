@@ -103,7 +103,7 @@ public class ZanrController {
         return ResponseEntity.ok("Uspesno dodan zanr na knjigu");
     }
 
-    @PutMapping("zanr/{idZanra}/knjiga/{idKnjige}")
+    @DeleteMapping("zanr/{idZanra}/knjiga/{idKnjige}")
     public ResponseEntity<String> obrisiSaKnjige(@PathVariable Long idZanra, @PathVariable Long idKnjige, HttpSession session) {
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
 

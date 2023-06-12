@@ -13,6 +13,9 @@ import web.projekat.entity.Polica;
 import web.projekat.entity.Stavka;
 import web.projekat.service.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class KnjigaPolicaController {
     @Autowired
@@ -34,23 +37,26 @@ public class KnjigaPolicaController {
 //            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
 //        }
 //
-//        if (knjigaService.findOne(idKnjige) == null) {
+//        korisnik = korisnikService.findOne(korisnik.getId());
+//        Knjiga knjiga = knjigaService.findOne(idKnjige);
+//
+//        if (knjiga == null) {
 //            return new ResponseEntity<>("Ne postoji knjiga", HttpStatus.BAD_REQUEST);
 //        }
 //
-//        if (policaService.findOne(idPolice) == null) {
+//        Polica polica = policaService.findOne(idPolice);
+//
+//        if (polica == null) {
 //            return new ResponseEntity<>("Ne postoji polica", HttpStatus.BAD_REQUEST);
 //        }
 //
+//        List<Polica> police = new ArrayList<>();
 //        Boolean njegova = false;
-//        Boolean naPrimarnoj = false;
 //        for (Polica p : korisnikService.findOne(korisnik.getId()).getPolice()) {
-//            if (p.getPrimarna()) {
-//                for (Stavka stavka : p.getStavke()) {
-//                    if (stavka.getKnjiga().getId().equals(idKnjige)) {
-//                        naPrimarnoj = true;
-//                        break;
-//                    }
+//            for (Stavka stavka : p.getStavke()) {
+//                if (stavka.getKnjiga().getId().equals(idKnjige)) {
+//                    police.add(p);
+//                    break;
 //                }
 //            }
 //            if (p.getId().equals(idPolice)) {
@@ -62,20 +68,26 @@ public class KnjigaPolicaController {
 //            return new ResponseEntity<>("Nije vasa polica", HttpStatus.BAD_REQUEST);
 //        }
 //
+//        Boolean naPrimarnoj = false;
+//        for (Polica p : police)
+//            if (p.getPrimarna())
+//                naPrimarnoj = true;
+//
 //        if (!policaService.findOne(idPolice).getPrimarna() && !naPrimarnoj) {
 //            return new ResponseEntity<>("Morate prvo dodati knjigu na primarnu policu", HttpStatus.BAD_REQUEST);
 //        }
 //
 //        if (naPrimarnoj) {
-//            for (Polica p : korisnikService.findOne(korisnik.getId()).getPolice()) {
+//            Stavka stavka;
+//            for (Polica p : police) {
 //                if (p.getPrimarna()) {
-//                    for (Stavka stavka : p.getStavke()) {
-//                        if (stavka.getKnjiga().getId().equals(idKnjige)) {
-//
-//                        }
+//                    for (Stavka s : p.getStavke()) {
+//                        if (s.getKnjiga().getId().equals(idKnjige))
+//                            stavka = s;
 //                    }
 //                }
 //            }
+//
 //        }
 //
 //        knjigaPolicaService.dodaj(korisnik.getId(), idKnjige, idPolice);

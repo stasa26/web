@@ -10,9 +10,11 @@ import web.projekat.dto.PolicaDto;
 import web.projekat.entity.Knjiga;
 import web.projekat.entity.Korisnik;
 import web.projekat.entity.Polica;
+import web.projekat.entity.Stavka;
 import web.projekat.service.KnjigaService;
 import web.projekat.service.KorisnikService;
 import web.projekat.service.PolicaService;
+import web.projekat.service.StavkaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,13 @@ public class PolicaController {
         if (korisnik == null)
             return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
 
-        policaService.delete(id);
+        Polica polica = policaService.findOne(id);
+
+        if (polica == null) {
+            return new ResponseEntity<>("Ne postoji polica", HttpStatus.BAD_REQUEST);
+        }
+
+        policaService.delete(polica);
         return ResponseEntity.ok("Uspesno obrisano");
     }
 }

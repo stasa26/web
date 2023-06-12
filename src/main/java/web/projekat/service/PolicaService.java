@@ -7,6 +7,7 @@ import web.projekat.dto.PolicaDto;
 import web.projekat.entity.Knjiga;
 import web.projekat.entity.Korisnik;
 import web.projekat.entity.Polica;
+import web.projekat.entity.Stavka;
 import web.projekat.repository.KnjigaRepository;
 import web.projekat.repository.PolicaRepository;
 
@@ -19,6 +20,8 @@ import java.util.Set;
 public class PolicaService {
     @Autowired
     private PolicaRepository policaRepository;
+    @Autowired
+    private StavkaService stavkaService;
 
     public Polica findOne(Long id) {
         Optional<Polica> polica = policaRepository.findById(id);
@@ -45,6 +48,7 @@ public class PolicaService {
         police.add(save(new PolicaDto(null, "Currently Reading", true, korisnik.getId())));
         return police;
     }
-    public void delete(Long id) {policaRepository.deleteById(id);
+    public void delete(Polica polica) {
+        policaRepository.delete(polica);
     }
 }

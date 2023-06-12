@@ -89,7 +89,13 @@ public class RecenzijaController {
         if (korisnik == null)
             return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
 
-        recenzijaService.delete(id);
+        Recenzija recenzija = recenzijaService.findOne(id);
+
+        if (recenzija == null) {
+            return new ResponseEntity<>("Ne postoji recenzija", HttpStatus.BAD_REQUEST);
+        }
+
+        recenzijaService.delete(recenzija);
         return ResponseEntity.ok("Uspesno obrisano");
     }
 }

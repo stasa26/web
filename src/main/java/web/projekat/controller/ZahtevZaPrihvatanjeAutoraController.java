@@ -50,14 +50,34 @@ public class ZahtevZaPrihvatanjeAutoraController {
 
         return ResponseEntity.ok(dtos);
     }
-    @DeleteMapping("zahtev/{id}")
-    public ResponseEntity<String> obrisiZahtev(@PathVariable Long id, HttpSession session) {
+//    @DeleteMapping("zahtev/{id}")
+//    public ResponseEntity<String> obrisiZahtev(@PathVariable Long id, HttpSession session) {
+//        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+//
+//        if (korisnik == null)
+//            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+//
+//        zahtevZaPrihvatanjeAutoraService.delete(id);
+//        return ResponseEntity.ok("Uspesno obrisano");
+//    }
+
+    @PutMapping("zahtev/{id}")
+    public ResponseEntity<String> obradiZahtev(@PathVariable Long id, @RequestParam Boolean prihvacen, HttpSession session) {
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
 
         if (korisnik == null)
-            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
 
-        zahtevZaPrihvatanjeAutoraService.delete(id);
-        return ResponseEntity.ok("Uspesno obrisano");
+        if (!korisnik.getAdmin())
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+
+        ZahtevZaPrihvatanjeAutora zahtev = zahtevZaPrihvatanjeAutoraService.findOne(id);
+
+        if (zahtev == null) {
+            return new ResponseEntity<>("Ne postoji zahtev", HttpStatus.BAD_REQUEST);
+        }
+
+        zahtevZaPrihvatanjeAutoraService.obradiZahtev(zahtev, prihvacen);
+        return ResponseEntity.ok("Obradjen zahtev");
     }
 }

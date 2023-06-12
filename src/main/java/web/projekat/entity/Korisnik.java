@@ -23,7 +23,7 @@ public class Korisnik implements Serializable {
     private Uloga uloga;
     private Boolean admin;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "korisnik_id")
     private Set<Polica> police;
 

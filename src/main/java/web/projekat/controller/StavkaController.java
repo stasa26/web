@@ -20,31 +20,31 @@ import java.util.List;
 public class StavkaController {
     @Autowired
     private StavkaService stavkaService;
-    @GetMapping("stavka/{id}")
-    public ResponseEntity<StavkaDto> getStavka(@PathVariable Long id) {
-        Stavka stavka = stavkaService.findOne(id);
-        if (stavka == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok(new StavkaDto(stavka));
-    }
-
-    @GetMapping("stavke")
-    public ResponseEntity<List<StavkaDto>> getStavke() {
-        List<Stavka> stavke = stavkaService.findAll();
-        List<StavkaDto> dtos = new ArrayList<>();
-        for (Stavka stavka : stavke)
-            dtos.add(new StavkaDto(stavka));
-        return ResponseEntity.ok(dtos);
-    }
-    @DeleteMapping("stavka/{id}")
-    public ResponseEntity<String> obrisiStavku(@PathVariable Long id, HttpSession session) {
-        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
-
-        if (korisnik == null)
-            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
-
-        stavkaService.delete(id);
-        return ResponseEntity.ok("Uspesno obrisano");
-    }
+//    @GetMapping("stavka/{id}")
+//    public ResponseEntity<StavkaDto> getStavka(@PathVariable Long id) {
+//        Stavka stavka = stavkaService.findOne(id);
+//        if (stavka == null) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//        return ResponseEntity.ok(new StavkaDto(stavka));
+//    }
+//
+//    @GetMapping("stavke")
+//    public ResponseEntity<List<StavkaDto>> getStavke() {
+//        List<Stavka> stavke = stavkaService.findAll();
+//        List<StavkaDto> dtos = new ArrayList<>();
+//        for (Stavka stavka : stavke)
+//            dtos.add(new StavkaDto(stavka));
+//        return ResponseEntity.ok(dtos);
+//    }
+//    @DeleteMapping("stavka/{id}")
+//    public ResponseEntity<String> obrisiStavku(@PathVariable Long id, HttpSession session) {
+//        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+//
+//        if (korisnik == null)
+//            return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+//
+//        stavkaService.delete(id);
+//        return ResponseEntity.ok("Uspesno obrisano");
+//    }
 }

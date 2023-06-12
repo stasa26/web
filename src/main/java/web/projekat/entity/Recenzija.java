@@ -13,7 +13,7 @@ public class Recenzija implements Serializable {
     private String tekst;
     private Date datum;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Korisnik korisnik;
 
     public Long getId() {

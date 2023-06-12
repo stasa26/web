@@ -16,6 +16,8 @@ import java.util.Optional;
 public class StavkaService {
     @Autowired
     private StavkaRepository stavkaRepository;
+    @Autowired
+    private RecenzijaService recenzijaService;
 
     public Stavka findOne(Long id) {
         Optional<Stavka> stavka = stavkaRepository.findById(id);
@@ -39,7 +41,7 @@ public class StavkaService {
 //        stavka.setPolica(dto.getPolica());
 //        stavkaRepository.save(stavka);
     }
-    public void delete(Long id) {
-        stavkaRepository.deleteById(id);
+    public void delete(Stavka stavka) {
+        stavkaRepository.delete(stavka);
     }
 }

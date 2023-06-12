@@ -14,6 +14,10 @@ public class Polica implements Serializable {
     private Boolean primarna;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "polica_id"),
+            inverseJoinColumns = @JoinColumn(name = "stavka_id")
+    )
     private Set<Stavka> stavke = new HashSet<>();
 
     public Long getId() {

@@ -16,6 +16,8 @@ import java.util.Optional;
 public class ZahtevZaPrihvatanjeAutoraService {
     @Autowired
     private ZahtevZaPrihvatanjeAutoraRepository zahtevZaPrihvatanjeAutoraRepository;
+    @Autowired
+    private KorisnikService korisnikService;
 
     public ZahtevZaPrihvatanjeAutora findOne(Long id) {
         Optional<ZahtevZaPrihvatanjeAutora> zahtev = zahtevZaPrihvatanjeAutoraRepository.findById(id);
@@ -38,6 +40,17 @@ public class ZahtevZaPrihvatanjeAutoraService {
         zahtev.setPoruka(zahtevDto.getPoruka());
         zahtev.setTelefon(zahtevDto.getTelefon());
         zahtev.setStatus(Status.CEKA);
+        zahtevZaPrihvatanjeAutoraRepository.save(zahtev);
+    }
+
+    public void obradiZahtev(ZahtevZaPrihvatanjeAutora zahtev, Boolean prihvacen) {
+        if (prihvacen) {
+            korisnikService.prihvacenAutor(zahtev.getAutor(), zahtev);
+            zahtev.setStatus(Status.ODOBREN);
+        } else {
+            zahtev.setStatus(Status.ODBIJEN);
+        }
+
         zahtevZaPrihvatanjeAutoraRepository.save(zahtev);
     }
 }
