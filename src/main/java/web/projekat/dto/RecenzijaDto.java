@@ -3,14 +3,16 @@ package web.projekat.dto;
 import web.projekat.entity.Korisnik;
 import web.projekat.entity.Recenzija;
 
+import java.util.Date;
+
 public class RecenzijaDto {
     private Long id;
     private Double ocena;
     private String tekst;
-    private String datum;
+    private Date datum;
     private Long korisnik;
     public RecenzijaDto(){}
-    public RecenzijaDto(Long id,Double ocena,String tekst,String datum,Long korisnik){
+    public RecenzijaDto(Long id,Double ocena,String tekst,Date datum,Long korisnik){
         this.id = id;
         this.ocena = ocena;
         this.tekst = tekst;
@@ -33,7 +35,7 @@ public class RecenzijaDto {
     public String getTekst(){
         return tekst;
     }
-    public String getDatum(){
+    public Date getDatum(){
         return datum;
     }
     public Long getKorisnik(){
@@ -52,7 +54,7 @@ public class RecenzijaDto {
         this.tekst = tekst;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
 

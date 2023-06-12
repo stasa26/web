@@ -11,6 +11,7 @@ import web.projekat.entity.Knjiga;
 import web.projekat.entity.Korisnik;
 import web.projekat.entity.Polica;
 import web.projekat.service.KnjigaService;
+import web.projekat.service.KorisnikService;
 import web.projekat.service.PolicaService;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.List;
 public class PolicaController {
     @Autowired
     private PolicaService policaService;
+    @Autowired
+    private KorisnikService korisnikService;
 
     @GetMapping("polica/{id}")
     public ResponseEntity<PolicaDto> getPolica(@PathVariable Long id) {
@@ -46,6 +49,10 @@ public class PolicaController {
 
         if (korisnik == null)
             return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
+
+        for (Polica polica : korisnikService.findOne(korisnik.getId()).getPolice())
+            if (polica.getNaziv().equals(dto.getNaziv()))
+                return new ResponseEntity<>("Vec imate policu sa tim nazivom", HttpStatus.BAD_REQUEST);
 
         dto.setPrimarna(false);
         dto.setKorisnik(korisnik.getId());

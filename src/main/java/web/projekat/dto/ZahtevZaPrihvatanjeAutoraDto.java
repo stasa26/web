@@ -1,26 +1,28 @@
 package web.projekat.dto;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import web.projekat.entity.Status;
 import web.projekat.entity.ZahtevZaPrihvatanjeAutora;
+
+import java.util.Date;
 
 public class ZahtevZaPrihvatanjeAutoraDto {
     private Long id;
     private String email;
     private String telefon;
     private String poruka;
-    private String datum;
+    private Date datum;
     private Status status;
+    private Long idAutora;
 
     public ZahtevZaPrihvatanjeAutoraDto(){}
-    public ZahtevZaPrihvatanjeAutoraDto(Long id,String email,String telefon,String poruka,String datum,Status status){
+    public ZahtevZaPrihvatanjeAutoraDto(Long id, String email, String telefon, String poruka, Date datum, Status status, Long idAutora){
         this.id = id;
         this.email = email;
         this.telefon = telefon;
         this.poruka = poruka;
         this.datum = datum;
         this.status = status;
+        this.idAutora = idAutora;
     }
     public ZahtevZaPrihvatanjeAutoraDto(ZahtevZaPrihvatanjeAutora zahtevZaPrihvatanjeAutora){
         this.id = zahtevZaPrihvatanjeAutora.getId();
@@ -29,6 +31,7 @@ public class ZahtevZaPrihvatanjeAutoraDto {
         this.poruka = zahtevZaPrihvatanjeAutora.getPoruka();
         this.datum = zahtevZaPrihvatanjeAutora.getDatum();
         this.status = zahtevZaPrihvatanjeAutora.getStatus();
+        this.idAutora = zahtevZaPrihvatanjeAutora.getAutor().getId();
     }
 
     public Long getId() {
@@ -63,11 +66,11 @@ public class ZahtevZaPrihvatanjeAutoraDto {
         this.poruka = poruka;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
 
@@ -77,5 +80,13 @@ public class ZahtevZaPrihvatanjeAutoraDto {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Long getIdAutora() {
+        return idAutora;
+    }
+
+    public void setIdAutora(Long idAutora) {
+        this.idAutora = idAutora;
     }
 }

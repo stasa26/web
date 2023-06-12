@@ -11,6 +11,7 @@ import web.projekat.entity.Recenzija;
 import web.projekat.repository.KnjigaRepository;
 import web.projekat.repository.RecenzijaRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,23 @@ public class RecenzijaService {
     public List<Recenzija> findAll() {return recenzijaRepository.findAll();
     }
 
-    public void save(RecenzijaDto dto) {
+    public Recenzija save(RecenzijaDto dto) {
         Recenzija recenzija = new Recenzija();
         recenzija.setOcena(dto.getOcena());
         recenzija.setDatum(dto.getDatum());
         recenzija.setTekst(dto.getTekst());
+        return recenzijaRepository.save(recenzija);
+    }
+
+    public void edit(Recenzija recenzija, RecenzijaDto recenzijaDto) {
+        if (recenzijaDto.getOcena() != null)
+            recenzija.setOcena(recenzijaDto.getOcena());
+
+        if (recenzijaDto.getTekst() != null)
+            recenzija.setTekst(recenzijaDto.getTekst());
+
+        recenzija.setDatum(new Date());
+
         recenzijaRepository.save(recenzija);
     }
     public void delete(Long id) {recenzijaRepository.deleteById(id);

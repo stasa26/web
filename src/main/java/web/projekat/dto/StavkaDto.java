@@ -10,20 +10,17 @@ public class StavkaDto {
     private Long id;
     private Long recenzija;
     private Long knjiga;
-    private Long polica;
 
     public StavkaDto(){}
-    public StavkaDto(Long id,Long recenzija,Long knjiga,Long polica){
+    public StavkaDto(Long id,Long recenzija,Long knjiga){
         this.id = id;
         this.knjiga = knjiga;
         this.recenzija = recenzija;
-        this.polica = polica;
     }
     public StavkaDto(Stavka stavka){
         this.id = stavka.getId();
         this.recenzija = stavka.getRecenzija().getId();
         this.knjiga = stavka.getKnjiga().getId();
-        this.polica = stavka.getPolica().getId();
     }
 
     public Long getId() {
@@ -38,10 +35,6 @@ public class StavkaDto {
         return knjiga;
     }
 
-    public Long getPolica() {
-        return polica;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,9 +45,5 @@ public class StavkaDto {
 
     public void setKnjiga(Long knjiga) {
         this.knjiga = knjiga;
-    }
-
-    public void setPolica(Long polica) {
-        this.polica = polica;
     }
 }

@@ -2,6 +2,7 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Recenzija implements Serializable {
@@ -10,7 +11,7 @@ public class Recenzija implements Serializable {
     private Long id;
     private Double ocena;
     private String tekst;
-    private String datum;
+    private Date datum;
 
     @OneToOne
     private Korisnik korisnik;
@@ -39,11 +40,11 @@ public class Recenzija implements Serializable {
         this.tekst = tekst;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
 

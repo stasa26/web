@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import web.projekat.dto.KorisnikDto;
 import web.projekat.dto.LoginDto;
 import web.projekat.dto.RegistracijaDto;
+import web.projekat.dto.ZahtevZaPrihvatanjeAutoraDto;
+import web.projekat.entity.Autor;
 import web.projekat.entity.Korisnik;
+import web.projekat.entity.Uloga;
 import web.projekat.service.KorisnikService;
+import web.projekat.service.ZahtevZaPrihvatanjeAutoraService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,8 @@ import java.util.List;
 public class KorisnikController {
 
     private final KorisnikService korisnikService;
+    @Autowired
+    private ZahtevZaPrihvatanjeAutoraService zahtevZaPrihvatanjeAutoraService;
     @Autowired
     public KorisnikController(KorisnikService korisnikService){
         this.korisnikService = korisnikService;
@@ -48,8 +54,8 @@ public class KorisnikController {
         session.invalidate();
         return new ResponseEntity("Successfully logged out", HttpStatus.OK);
     }
-    @GetMapping("korisnik")
-    public ResponseEntity<List<KorisnikDto>> getKorisnik(HttpSession session){
+    @GetMapping("korisnici")
+    public ResponseEntity<List<KorisnikDto>> getKorisnici(HttpSession session){
         List<Korisnik> korisnikList = korisnikService.findAll();
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("employee");
@@ -118,7 +124,73 @@ public class KorisnikController {
         if (korisnik == null)
             return new ResponseEntity<>("Forbidden", HttpStatus.FORBIDDEN);
 
+        if (!korisnik.getUloga().equals(Uloga.ADMINISTRATOR) && !korisnik.getId().equals(id)) {
+            return new ResponseEntity<>("Mozete samo sami sebe obrisati", HttpStatus.FORBIDDEN);
+        }
+
         korisnikService.delete(id);
         return ResponseEntity.ok("Uspesno obrisano");
+    }
+
+    @PutMapping("korisnik/{id}")
+    public ResponseEntity<String> podnesiZahtev(@PathVariable Long id, @RequestBody ZahtevZaPrihvatanjeAutoraDto zahtevDto, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik != null) {
+            return new ResponseEntity<>("Morate biti odjaljeni da bi podneli zahtev", HttpStatus.FORBIDDEN);
+        }
+
+        if (zahtevDto.getEmail() == null || zahtevDto.getPoruka() == null || zahtevDto.getTelefon() == null || zahtevDto.getIdAutora() == null) {
+            return new ResponseEntity<>("Moraju svi podaci biti popunjeni", HttpStatus.BAD_REQUEST);
+        }
+
+        Korisnik autor = korisnikService.findOne(id);
+
+        if (autor == null) {
+            return new ResponseEntity<>("Ne postoji taj autor", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!autor.getUloga().equals(Uloga.AUTOR)) {
+            return new ResponseEntity<>("Ovaj korisnik nije autor", HttpStatus.BAD_REQUEST);
+        }
+
+        zahtevZaPrihvatanjeAutoraService.save(zahtevDto, (Autor)autor);
+        return ResponseEntity.ok("Uspesno podnet zahtev");
+    }
+
+    @PutMapping("korisnik")
+    public ResponseEntity<String> azurirajProfil(@RequestBody KorisnikDto korisnikDto, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null) {
+            return new ResponseEntity<>("Niste prijavljeni", HttpStatus.FORBIDDEN);
+        }
+
+        if (korisnikDto.getPassword() != null && !korisnikDto.getTrenutniPassword().equals(korisnikService.findOne(korisnik.getId()).getPassword())) {
+            return new ResponseEntity<>("Pogresan password", HttpStatus.FORBIDDEN);
+        }
+
+        if (korisnikDto.getEmail() != null && !korisnikDto.getTrenutniPassword().equals(korisnikService.findOne(korisnik.getId()).getPassword())) {
+            return new ResponseEntity<>("Pogresan password", HttpStatus.FORBIDDEN);
+        }
+
+        korisnikService.azurirajProfil(korisnik.getId(), korisnikDto);
+        return ResponseEntity.ok("Uspesno azuriran");
+    }
+
+    @PutMapping("autor/{id}")
+    public ResponseEntity<String> azurirajAutora(@PathVariable Long id, @RequestBody KorisnikDto korisnikDto, HttpSession session) {
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if (korisnik == null) {
+            return new ResponseEntity<>("Niste prijavljeni", HttpStatus.FORBIDDEN);
+        }
+
+        if (!korisnik.getAdmin()) {
+            return new ResponseEntity<>("Niste admin", HttpStatus.FORBIDDEN);
+        }
+
+        korisnikService.azurirajProfil(id, korisnikDto);
+        return ResponseEntity.ok("Uspesno azuriran autor");
     }
 }

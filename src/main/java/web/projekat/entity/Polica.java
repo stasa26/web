@@ -2,6 +2,8 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Polica implements Serializable {
@@ -10,6 +12,9 @@ public class Polica implements Serializable {
     private Long id;
     private String naziv;
     private Boolean primarna;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Stavka> stavke = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -42,5 +47,13 @@ public class Polica implements Serializable {
                 ", naziv='" + naziv + '\'' +
                 ", primarna=" + primarna +
                 '}';
+    }
+
+    public Set<Stavka> getStavke() {
+        return stavke;
+    }
+
+    public void setStavke(Set<Stavka> stavke) {
+        this.stavke = stavke;
     }
 }

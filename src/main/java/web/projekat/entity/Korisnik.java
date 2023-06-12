@@ -2,6 +2,7 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -15,14 +16,14 @@ public class Korisnik implements Serializable {
     private String korisnickoIme;
     private String email;
     private String password;
-    private String datumRodjenja;
+    private Date datumRodjenja;
     private String slika;
     private String opis;
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
     private Boolean admin;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "korisnik_id")
     private Set<Polica> police;
 
@@ -74,11 +75,11 @@ public class Korisnik implements Serializable {
         this.password = password;
     }
 
-    public String getDatumRodjenja() {
+    public Date getDatumRodjenja() {
         return datumRodjenja;
     }
 
-    public void setDatumRodjenja(String datumRodjenja) {
+    public void setDatumRodjenja(Date datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
     }
 

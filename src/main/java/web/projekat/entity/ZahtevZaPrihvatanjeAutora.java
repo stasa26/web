@@ -2,6 +2,7 @@ package web.projekat.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class ZahtevZaPrihvatanjeAutora implements Serializable {
@@ -11,9 +12,12 @@ public class ZahtevZaPrihvatanjeAutora implements Serializable {
     private String email;
     private String telefon;
     private String poruka;
-    private String datum;
+    private Date datum;
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToOne
+    private Autor autor;
 
     public Long getId() {
         return id;
@@ -47,11 +51,11 @@ public class ZahtevZaPrihvatanjeAutora implements Serializable {
         this.poruka = poruka;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
 
@@ -72,5 +76,13 @@ public class ZahtevZaPrihvatanjeAutora implements Serializable {
                 ", datum='" + datum + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 }

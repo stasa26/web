@@ -26,6 +26,14 @@ public class KnjigaService {
         return knjigaRepository.findAll();
     }
 
+    public List<Knjiga> findAllByNaziv(String naziv) {
+        return knjigaRepository.findAllByNaslov(naziv);
+    }
+
+    public List<Knjiga> findAllByAutorId(Long autorId) {
+        return knjigaRepository.findAllByAutorId(autorId);
+    }
+
     public void save(Autor autor, KnjigaDto dto) {
         Knjiga knjiga = new Knjiga();
         knjiga.setISBN(dto.getISBN());
@@ -34,6 +42,26 @@ public class KnjigaService {
         knjiga.setBrojStrana(dto.getBrojStrana());
         knjiga.setOpis(dto.getOpis());
         knjiga.setAutor(autor);
+        knjigaRepository.save(knjiga);
+    }
+
+    public void edit(Long id, KnjigaDto knjigaDto) {
+        Knjiga knjiga = findOne(id);
+        if (knjigaDto.getBrojStrana() != null)
+            knjiga.setBrojStrana(knjigaDto.getBrojStrana());
+
+        if (knjigaDto.getISBN() != null)
+            knjiga.setISBN(knjigaDto.getISBN());
+
+        if (knjigaDto.getNaslov() != null)
+            knjiga.setNaslov(knjigaDto.getNaslov());
+
+        if (knjigaDto.getOpis() != null)
+            knjiga.setOpis(knjigaDto.getOpis());
+
+        if (knjigaDto.getObjavljena() != null)
+            knjiga.setObjavljena(knjigaDto.getObjavljena());
+
         knjigaRepository.save(knjiga);
     }
 

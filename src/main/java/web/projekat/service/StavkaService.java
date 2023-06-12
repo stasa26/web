@@ -28,6 +28,10 @@ public class StavkaService {
         return stavkaRepository.findAll();
     }
 
+    public List<Stavka> findAllByKnjigaId(Long id) {
+        return stavkaRepository.findAllByKnjigaId(id);
+    }
+
     public void save(StavkaDto dto) {
 //        Stavka stavka = new Stavka();
 //        stavka.setRecenzija(dto.getRecenzija());

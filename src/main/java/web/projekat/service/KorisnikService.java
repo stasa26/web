@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import web.projekat.controller.PolicaController;
+import web.projekat.dto.KorisnikDto;
 import web.projekat.dto.RegistracijaDto;
 import web.projekat.entity.Autor;
 import web.projekat.entity.Korisnik;
@@ -90,5 +91,42 @@ public class KorisnikService {
     }
     public void delete(Long id) {
         korisnikRepository.deleteById(id);
+    }
+
+    public Autor findAutorByIme(String ime) {
+        Optional<Autor> autor = autorRepository.findByIme(ime);
+        if (autor.isPresent())
+            return autor.get();
+        return null;
+    }
+
+    public Autor findAutorByPrezime(String prezime) {
+        Optional<Autor> autor = autorRepository.findByPrezime(prezime);
+        if (autor.isPresent())
+            return autor.get();
+        return null;
+    }
+
+    public void azurirajProfil(Long id, KorisnikDto korisnikDto) {
+        Korisnik korisnik = findOne(id);
+        if (korisnikDto.getDatumRodjenja() != null)
+            korisnik.setDatumRodjenja(korisnikDto.getDatumRodjenja());
+
+        if (korisnikDto.getIme() != null)
+            korisnik.setIme(korisnikDto.getIme());
+
+        if (korisnikDto.getPrezime() != null)
+            korisnik.setPrezime(korisnikDto.getPrezime());
+
+        if (korisnikDto.getOpis() != null)
+            korisnik.setOpis(korisnikDto.getOpis());
+
+        if (korisnikDto.getPassword() != null)
+            korisnik.setPassword(korisnikDto.getPassword());
+
+        if (korisnikDto.getEmail() != null)
+            korisnik.setEmail(korisnikDto.getEmail());
+
+        korisnikRepository.save(korisnik);
     }
 }
