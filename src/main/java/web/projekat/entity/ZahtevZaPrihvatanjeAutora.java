@@ -16,7 +16,7 @@ public class ZahtevZaPrihvatanjeAutora implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Autor autor;
 
     public Long getId() {

@@ -18,10 +18,10 @@ public class Knjiga implements Serializable {
     private String opis;
     private Double ocena;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Zanr> zanr = new HashSet<Zanr>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     private Autor autor;
 

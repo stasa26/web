@@ -45,6 +45,10 @@ public class KnjigaService {
         knjigaRepository.save(knjiga);
     }
 
+    public void savee(Knjiga knjiga) {
+        knjigaRepository.save(knjiga);
+    }
+
     public void edit(Long id, KnjigaDto knjigaDto) {
         Knjiga knjiga = findOne(id);
         if (knjigaDto.getBrojStrana() != null)
